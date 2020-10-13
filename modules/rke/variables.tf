@@ -44,6 +44,11 @@ variable "os_password" {
   type = string
 }
 
+variable "os_ca_file" {
+  type = string
+  default = null
+}
+
 variable "master_labels" {
   type = map(string)
 }
