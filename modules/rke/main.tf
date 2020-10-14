@@ -141,7 +141,7 @@ resource "rke_cluster" "cluster" {
     content {
       provisioner "os_ca_file" {
         content      = var.os_ca_cert
-        destination = /etc/kubernetes/os-ca.crt
+        destination = "/etc/kubernetes/os-ca.crt"
       }
     }
   }
@@ -156,7 +156,7 @@ resource "rke_cluster" "cluster" {
           auth_url  = var.os_auth_url
           tenant_id = data.openstack_identity_auth_scope_v3.scope.project_id
           domain_id = data.openstack_identity_auth_scope_v3.scope.project_domain_id
-          ca_file   = var.os_ca_cert ? /etc/kubernetes/os-ca.crt : null
+          ca_file   = var.os_ca_cert ? "/etc/kubernetes/os-ca.crt" : null
         }
         block_storage {
           ignore_volume_az = var.ignore_volume_az
