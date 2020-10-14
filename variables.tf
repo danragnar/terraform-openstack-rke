@@ -239,7 +239,7 @@ variable "cloud_provider" {
   description = "Deploy cloud provider"
 }
 
-variable "os_ca_file" {
+variable "os_ca_cert" {
   type        = string
   default     = null
   description = "The OpenStack CA certificate"

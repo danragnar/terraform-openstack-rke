@@ -140,7 +140,7 @@ resource "rke_cluster" "cluster" {
     for_each = var.os_ca_cert
     content {
       provisioner "os_ca_file" {
-        source      = var.os_ca_cert
+        content      = var.os_ca_cert
         destination = /etc/kubernetes/os-ca.crt
       }
     }

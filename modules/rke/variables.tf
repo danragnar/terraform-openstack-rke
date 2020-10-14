@@ -44,7 +44,7 @@ variable "os_password" {
   type = string
 }
 
-variable "os_ca_file" {
+variable "os_ca_cert" {
   type = string
   default = null
 }
