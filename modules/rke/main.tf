@@ -52,7 +52,7 @@ data "openstack_identity_auth_scope_v3" "scope" {
 }
 
 resource "null_resource" "os_ca_cert" {
-  dynamic os_ca_cert {
+  dynamic "os_ca_cert" {
     for_each = var.os_ca_cert
     content {
       provisioner "os_ca_file" {
