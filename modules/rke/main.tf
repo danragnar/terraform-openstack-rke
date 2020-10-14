@@ -52,14 +52,9 @@ data "openstack_identity_auth_scope_v3" "scope" {
 }
 
 resource "null_resource" "os_ca_cert" {
-  dynamic "os_ca_cert" {
-    for_each = var.os_ca_cert
-    content {
-      provisioner "os_ca_file" {
-        content      = var.os_ca_cert
-        destination = "/etc/kubernetes/os-ca.crt"
-      }
-    }
+  provisioner "os_ca_file" {
+    content      = var.os_ca_cert
+    destination = "/etc/kubernetes/os-ca.crt"
   }
 }
 
