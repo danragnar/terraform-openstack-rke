@@ -51,6 +51,18 @@ data "openstack_identity_auth_scope_v3" "scope" {
   name = "auth_scope"
 }
 
+resource "null_resource" "os_ca_cert" {
+  dynamic os_ca_cert {
+    for_each = var.os_ca_cert
+    content {
+      provisioner "os_ca_file" {
+        content      = var.os_ca_cert
+        destination = "/etc/kubernetes/os-ca.crt"
+      }
+    }
+  }
+}
+
 resource "rke_cluster" "cluster" {
 
   depends_on   = [var.rke_depends_on, null_resource.wait_for_master_ssh,
@@ -136,15 +148,6 @@ resource "rke_cluster" "cluster" {
     node_selector = { "node-role.kubernetes.io/edge" = "true" }
   }
 
-  dynamic os_ca_cert {
-    for_each = var.os_ca_cert
-    content {
-      provisioner "os_ca_file" {
-        content      = var.os_ca_cert
-        destination = "/etc/kubernetes/os-ca.crt"
-      }
-    }
-  }
   dynamic cloud_provider {
     for_each = var.cloud_provider ? [1] : []
     content {
