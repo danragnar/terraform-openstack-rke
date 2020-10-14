@@ -239,6 +239,12 @@ variable "cloud_provider" {
   description = "Deploy cloud provider"
 }
 
+variable "os_ca_file" {
+  type        = string
+  default     = null
+  description = "The OpenStack CA certificate"
+}
+
 variable "ignore_volume_az" {
   type        = bool
   default     = "false"
