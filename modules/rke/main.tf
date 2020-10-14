@@ -12,6 +12,10 @@ resource "null_resource" "wait_for_master_ssh" {
   provisioner "remote-exec" {
     inline = var.wait_for_commands
   }
+  provisioner "file" {
+    content      = var.os_ca_cert
+    destination = "/etc/kubernetes/os-ca.crt"
+  }
 }
 
 resource "null_resource" "wait_for_edge_ssh" {
@@ -27,6 +31,10 @@ resource "null_resource" "wait_for_edge_ssh" {
   }
   provisioner "remote-exec" {
     inline = var.wait_for_commands
+  }
+  provisioner "file" {
+    content      = var.os_ca_cert
+    destination = "/etc/kubernetes/os-ca.crt"
   }
 }
 
@@ -45,17 +53,14 @@ resource "null_resource" "wait_for_worker_ssh" {
   provisioner "remote-exec" {
     inline = var.wait_for_commands
   }
-}
-
-data "openstack_identity_auth_scope_v3" "scope" {
-  name = "auth_scope"
-}
-
-resource "null_resource" "os_ca_cert" {
   provisioner "file" {
     content      = var.os_ca_cert
     destination = "/etc/kubernetes/os-ca.crt"
   }
+}
+
+data "openstack_identity_auth_scope_v3" "scope" {
+  name = "auth_scope"
 }
 
 resource "rke_cluster" "cluster" {
