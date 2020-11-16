@@ -15,7 +15,7 @@ resource "null_resource" "wait_for_master_ssh" {
   provisioner "remote-exec" {
     inline = [
       "sudo mkdir /etc/kubernetes", 
-      "echo ${var.os_ca_cert} | sudo tee /etc/kubernetes/os-ca.crt"
+      "sudo tee /etc/kubernetes/os-ca.crt <<END\n${var.os_ca_cert}\nEND"
     ]
   }
 }
@@ -37,7 +37,7 @@ resource "null_resource" "wait_for_edge_ssh" {
   provisioner "remote-exec" {
     inline = [
       "sudo mkdir /etc/kubernetes", 
-      "echo ${var.os_ca_cert} | sudo tee /etc/kubernetes/os-ca.crt"
+      "sudo tee /etc/kubernetes/os-ca.crt <<END\n${var.os_ca_cert}\nEND"
     ]
   }
 }
@@ -60,7 +60,7 @@ resource "null_resource" "wait_for_worker_ssh" {
   provisioner "remote-exec" {
     inline = [
       "sudo mkdir /etc/kubernetes", 
-      "echo ${var.os_ca_cert} | sudo tee /etc/kubernetes/os-ca.crt"
+      "sudo tee /etc/kubernetes/os-ca.crt <<END\n${var.os_ca_cert}\nEND"
     ]
   }
 }
